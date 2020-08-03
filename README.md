@@ -1,32 +1,32 @@
 # fullstack_trainning
 
 Fullstack trainning is the fullstack project about :
- - Frontend is angular/ reactjs/ vuejs 
- - Backend is nodejs/ golang/ python
- - Database is mongodb/ mysql/ postgresql
+ - Frontend is [Angular](https://angular.io/)/ [Reactjs](https://reactjs.org/)/ [vuejs](https://vuejs.org/) 
+ - Backend is [Node.js](https://nodejs.org/)/ [Golang](https://golang.org/)/ [Python](https://www.python.org/)
+ - Database is [Mongodb](https://www.mongodb.com/)/ [Postgresql](https://www.postgresql.org/)
 
-   ## Usage
+## Usage
 
-Please select 1 type of frontend or backend or database to use it .
+Please select 1 type of frontend and 1 backend and 1 database to use it .
 
 Example :
 
-Run reactjs ...
+Run Reactjs ...
 ```sh
 $ cd front_end_reactjs
 $ npm i
 $ npm start
 ```
 
-Run mongodb
+Run Mongodb
 > update later
 
-Run reactjs ...
+Run Reactjs ...
 ```sh
 $ cd back_end_nodejs
 $ npm i
 $ npm start
 ```
 
-   ## Contact 
+## Contact 
 [Tri Bui Quang](https://github.com/TriBuiQuang)
