@@ -2,11 +2,18 @@
 front_end_reactjs/node_modules
 ./front_end_reactjs/node_modules
 
+## Package-lock
+front_end_reactjs/package-lock.json
+./front_end_reactjs/package-lock.json
+
 
 # Backend
 back_end_nodejs/node_modules
 ./back_end_nodejs/node_modules
 
+## Package-lock
+back_end_nodejs/package-lock.json
+./back_end_nodejs/package-lock.json
 ## log
 back_end_nodejs/debug
 ./back_end_nodejs/debug
