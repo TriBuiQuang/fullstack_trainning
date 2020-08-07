@@ -1,0 +1,25 @@
+{
+   "name": "back_end_nodejs",
+   "version": "1.0.0",
+   "description": "",
+   "main": "index.js",
+   "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon cluster.js",
+      "develop": "SET NODE_ENV=development & node index.js",
+      "product": "SET NODE_ENV=production & node index.js"
+   },
+   "author": "Tri Bui Quang",
+   "license": "ISC",
+   "dependencies": {
+      "express": "^4.17.1",
+      "jsonwebtoken": "^8.5.1",
+      "mongoose": "^5.9.27",
+      "nodemon": "^2.0.4",
+      "winston": "^3.3.3"
+   },
+   "type": "module",
+   "devDependencies": {
+      "eslint": "^7.6.0"
+   }
+}

@@ -1,0 +1,12 @@
+# Frontend
+front_end_reactjs/node_modules
+./front_end_reactjs/node_modules
+
+
+# Backend
+back_end_nodejs/node_modules
+./back_end_nodejs/node_modules
+
+## log
+back_end_nodejs/debug
+./back_end_nodejs/debug
