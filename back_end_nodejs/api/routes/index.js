@@ -1,7 +1,6 @@
 import express from 'express';
 import UserRoute from './UserRoute.js';
 
-
 const app = express();
 
 // This is router global.
