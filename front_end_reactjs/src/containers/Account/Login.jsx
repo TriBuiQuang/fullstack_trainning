@@ -2,21 +2,42 @@ import React, { useState } from "react";
 import { withRouter } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, CardHeader, CardBody, Form, FormGroup, Label, Input, CardFooter } from "reactstrap";
 
+import validateInput from '../../constants/validate';
+
 function LoginComponent(props) {
    const [user, setUser] = useState({
       username: "",
       password: ""
    });
    const [error, setError] = useState(""); 
-   
-   const onChange = (e) => {
+   const [isError, setIsError] = useState(true); 
+ 
+
+   const onChange = async (e) => {
       e.preventDefault();
       const { name, value } = e.target;
-      setUser(prevState => ({ ...prevState,[name]: value }));
+      let errorList = validateInput(name, value);
+      
+		if(!errorList.isError){
+			if(name === 'username'){
+				errorList = validateInput('password', user.password);
+			}else{
+				errorList = validateInput('username', user.username);
+			}
+      }
+      
+      setIsError(errorList.isError);
+		setError(errorList.errorMessage);
+		setUser(prevState => ({ ...prevState,[name]: value }));
+		
    }
 
    const Login = () => {
-      console.log(user)
+      if(!error){
+         props.history.push("/admin/dashboard");
+      }else {
+         console.log("co error");
+      }
    }
 
    const Registration = () => {
@@ -40,13 +61,11 @@ function LoginComponent(props) {
                            <Input type="password" name="password" id="password" placeholder="Password..." className="is-invalid" onChange={(e)=> onChange(e)} />
                         </FormGroup>
                      </Form>
-                     <Button color="secondary" className="mt-3 col-md-5 mr-2" onClick={Login}>Login</Button>
+                     <Button color="secondary" className="mt-3 col-md-5 mr-2" onClick={Login} disabled={isError ? true : false}>Login</Button>
                      <Button color="secondary" className="mt-3 col-md-5 float-md-right" onClick={Registration}>Registration</Button>
                   </CardBody>
                   <CardFooter>
-                     <p className="text-danger font-weight-bold"> Username must more than 5 !!!</p>
-                     <p className="text-danger font-weight-bold"> Password must more than 5 !!!</p>
-                     <p className="text-danger font-weight-bold"> Username must is a email !!!</p>
+                     {error ?  <p className="text-danger font-weight-bold"> {error} </p> : ""}
                   </CardFooter>
                </Card>
             </Col>
