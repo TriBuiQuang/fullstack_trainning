@@ -83,7 +83,7 @@ const GetProduct = async (req, res) => {
       if (isNaN(limit) === true) limit = 5;
       if (isNaN(offset) === true) offset = 0;
 
-      const total = await Product.countDocuments({ user: req.auth.userId });
+      const total = await Product.countDocuments({ belong: req.auth.userId });
       const product = await Product.find({ belong: req.auth.userId }).sort('-created_at').skip(offset).limit(limit).select('-__v');
 
       logger.info('Stop GetProduct');
