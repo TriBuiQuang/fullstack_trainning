@@ -113,7 +113,7 @@ const ChangePassword = async (req, res) => {
 
       logger.info('Stop ChangePassword');
 
-      return res.status(200).json({ message: 'Change password done' });
+      return res.status(200).json({ message: 'Change password successfull' });
    } catch (error) {
       logger.error('Error ChangePassword ' + error);
 
