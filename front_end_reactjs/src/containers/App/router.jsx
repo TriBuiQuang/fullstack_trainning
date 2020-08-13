@@ -1,30 +1,33 @@
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 
 import HeaderComponent from "../../components/Header";
 
 import Home from "../Home";
 import NotFound404 from "../NotFound";
 import Login from '../Account/Login';
-import Registration from '../Account/Registration'
+import Registration from '../Account/Registration';
 
-const wrappedRoutes = () => (
-   <>
-      <Switch>
-         <Route exact path="/" component={Home} />
-         <Route path="/login" component={Login} />
-         <Route path="/registration" component={Registration} />
-      </Switch>
-   </>
-);
+// Admin component
+import Dashboard from '../Dashboard';
+import Profile from '../Account/Profile';
+
 
 const Router = () => (
    <>
-      <HeaderComponent />
+     <HeaderComponent />
       <Switch>
-         <Route path="/404" component={NotFound404} />
-         <Route path="/" component={wrappedRoutes} />
-         {/* <Redirect from="*" to="/404" /> */}
+         {/* user */}
+         <Route exact path="/" component={Home} />
+         <Route path="/login" component={Login} />
+         <Route path="/registration" component={Registration} />
+
+         {/* admin */}
+         <Route exact path="/admin/" component={Profile} />
+         <Route path="/admin/dashboard" component={Dashboard} />
+         <Route path="/admin/management" component={Dashboard} />
+
+         <Route path='*' exact={true} component={NotFound404} />
       </Switch>
    </>
 );

@@ -1,11 +1,14 @@
 import React, { useState } from "react";
-import { withRouter } from 'react-router-dom';
+import { withRouter } from "react-router-dom";
 import { Container, Row, Col, Card, Button, CardHeader, CardBody, Form, FormGroup, Label, Input, CardFooter } from "reactstrap";
+
+import validateInput from "../../constants/validate";
 
 function RegistrationComponent(props) {
    const [user, setUser] = useState({
       username: "",
       password: "",
+      rePassword: "",
       firstName: "",
       lastName: "",
       gender: true,
@@ -22,11 +25,27 @@ function RegistrationComponent(props) {
    };
 
    const Registration = () => {
-      console.log(user);
+      let errorList = validateInput("username", user.username);
+      if (!errorList.isError) {
+         errorList = validateInput("password", user.password);
+         if (!errorList.isError) {
+            errorList = validateInput("rePassword", user.rePassword);
+            if (!errorList.isError) {
+               errorList = validateInput("firstName", user.firstName);
+               if (!errorList.isError) errorList = validateInput("lastName", user.lastName);
+            }
+         }
+      }
+
+      setError(errorList.errorMessage);
+      if (!errorList.isError) {
+         props.history.push("/login");
+      } else {
+         console.log("co error");
+      }
    };
 
    const Login = () => {
-      console.log(props);
       props.history.push("/login");
    };
 
@@ -54,12 +73,12 @@ function RegistrationComponent(props) {
                            />
                         </FormGroup>
                         <FormGroup>
-                           <Label for="re-password">Re-password</Label>
+                           <Label for="rePassword">Re-password</Label>
                            <Input
                               type="password"
-                              name="re-password"
-                              id="re-password"
-                              placeholder="re-password..."
+                              name="rePassword"
+                              id="rePassword"
+                              placeholder="Re-password..."
                               className="is-invalid"
                               onChange={(e) => onChange(e)}
                            />
@@ -76,12 +95,24 @@ function RegistrationComponent(props) {
                            <legend>Gender</legend>
                            <FormGroup check>
                               <Label check>
-                                 <Input type="radio" name="gender" checked={user.gender === true}  onChange={() => setUser({...user, gender : true })} /> Male
+                                 <Input
+                                    type="radio"
+                                    name="gender"
+                                    checked={user.gender === true}
+                                    onChange={() => setUser({ ...user, gender: true })}
+                                 />{" "}
+                                 Male
                               </Label>
                            </FormGroup>
                            <FormGroup check>
                               <Label check>
-                                 <Input type="radio" name="gender" checked={user.gender === false}  onChange={() => setUser({...user, gender : false })}  /> Female
+                                 <Input
+                                    type="radio"
+                                    name="gender"
+                                    checked={user.gender === false}
+                                    onChange={() => setUser({ ...user, gender: false })}
+                                 />{" "}
+                                 Female
                               </Label>
                            </FormGroup>
                         </FormGroup>
@@ -110,9 +141,7 @@ function RegistrationComponent(props) {
                      </Button>
                   </CardBody>
                   <CardFooter>
-                     <p className="text-danger font-weight-bold"> Username must more than 5 !!!</p>
-                     <p className="text-danger font-weight-bold"> Password must more than 5 !!!</p>
-                     <p className="text-danger font-weight-bold"> Username must is a email !!!</p>
+                     {error ?  <p className="text-danger font-weight-bold"> {error} </p> : ""}
                   </CardFooter>
                </Card>
             </Col>
