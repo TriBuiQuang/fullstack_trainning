@@ -5,7 +5,7 @@
    "main": "index.js",
    "scripts": {
       "test": "echo \"Error: no test specified\" && exit 1",
-      "start": "nodemon cluster.js",
+      "start": "nodemon index.js",
       "develop": "SET NODE_ENV=development & node index.js",
       "product": "SET NODE_ENV=production & node index.js"
    },
@@ -18,8 +18,10 @@
       "express": "^4.17.1",
       "jsonwebtoken": "^8.5.1",
       "mongoose": "^5.9.27",
+      "node-telegram-bot-api": "^0.50.0",
       "nodemon": "^2.0.4",
       "redis": "^3.0.2",
+      "telegram-bot-api": "^2.0.1",
       "winston": "^3.3.3"
    },
    "type": "module",
