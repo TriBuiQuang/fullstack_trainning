@@ -5,12 +5,13 @@ import { createBrowserHistory } from "history";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 // Call action
-import { status, sort } from './redux/actions';
+import { status, sort } from "./redux/actions";
 // Call Reducer
-import myReducer from './redux/reducers';
+import myReducer from "./redux/reducers";
 
 //import css
 import "bootstrap/dist/css/bootstrap.min.css";
+import "./assets/scss/index.scss";
 
 import RouterComponent from "./containers/App/router";
 import * as serviceWorker from "./serviceWorker";
@@ -35,13 +36,11 @@ store.dispatch(
 console.log("SORT : ", store.getState());
 
 ReactDOM.render(
-   <React.StrictMode>
-      <Provider store={store}>
-         <BrowserRouter history={hist}>
-            <RouterComponent />
-         </BrowserRouter>
-      </Provider>
-   </React.StrictMode>,
+   <Provider store={store}>
+      <BrowserRouter history={hist}>
+         <RouterComponent />
+      </BrowserRouter>
+   </Provider>,
    document.getElementById("root")
 );
 

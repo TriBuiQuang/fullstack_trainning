@@ -1,16 +1,22 @@
-import React from 'react';
-import { withRouter } from 'react-router-dom';
-import { Container, Row, Col } from 'reactstrap';
+import React from "react";
+import { withRouter } from "react-router-dom";
+import { Row, Col } from "reactstrap";
 
+import AreaChart from "./Component/AreaChart";
+import DoughnutChart from "./Component/DoughnutChart";
 function DashboardComponent() {
    return (
-      <Container fluid>
+      <>
          <Row>
+            <DoughnutChart />
+            <DoughnutChart />
+         </Row>
+         <Row className="mt-2">
             <Col>
-               <h2>Dashboard page</h2>
+               <AreaChart />
             </Col>
          </Row>
-      </Container>
+      </>
    );
 }
 
