@@ -69,7 +69,7 @@ const SendMessage = async (req, res) => {
    try {
       const { text, data, checkName, checkPhone, checkEmail } = req.body;
       let reg;
-      let check, txtMessage;
+      let check, txtMessage, replyMarkup;
       let chat = await Chat.findOne({ user_id: req.auth.userId });
       let arr = [
          {
@@ -84,7 +84,6 @@ const SendMessage = async (req, res) => {
                first_name: "tri",
                last_name: "bui quang",
             },
-            date: Date.parse(new Date()),
             text: text,
          },
       ];
@@ -115,7 +114,7 @@ const SendMessage = async (req, res) => {
                first_name: "tri",
                last_name: "bui quang",
             },
-            date: Date.parse(new Date()),
+
             text: txtMessage,
          });
          txtMessage = "Doremon 4.0 giới thiệu với bạn 1 chương trình rất lý thú để trang bị thêm 100 thuật ngữ liên quan về blockchain";
@@ -135,16 +134,15 @@ const SendMessage = async (req, res) => {
                first_name: "tri",
                last_name: "bui quang",
             },
-            date: Date.parse(new Date()),
+
             text: txtMessage,
          });
          txtMessage = "Khóa học này 8h và chi phí 100$ bạn đăng ký chứ ?";
+         replyMarkup = { inline_keyboard: [[{ text: "Đăng kí", callback_data: "1" }]] };
          await api.sendMessage({
             chat_id: chat_id,
             text: txtMessage,
-            reply_markup: {
-               inline_keyboard: [[{ text: "Đăng kí", callback_data: "1" }]],
-            },
+            reply_markup: replyMarkup,
          });
          arr.push({
             from: {
@@ -158,95 +156,214 @@ const SendMessage = async (req, res) => {
                first_name: "tri",
                last_name: "bui quang",
             },
-            date: Date.parse(new Date()),
             text: txtMessage,
+            reply_markup: replyMarkup,
          });
       }
-      console.log(text, data);
+
       if (text === "callback_data") {
-         if (data === "1")
-            await api.sendMessage({
-               chat_id: chat_id,
-               text: "Đặc biệt hơn nếu thanh toán bằng OPAY bạn chỉ còn 80$ ~ 120 OPAY bạn có tài khoản chưa?",
-               reply_markup: {
-                  inline_keyboard: [
-                     [
-                        { text: "Đã có", callback_data: "2" },
-                        { text: "Đăng kí", callback_data: "3" },
-                     ],
+         if (data === "1") {
+            txtMessage = "Đặc biệt hơn nếu thanh toán bằng OPAY bạn chỉ còn 80$ ~ 120 OPAY bạn có tài khoản chưa?";
+            replyMarkup = {
+               inline_keyboard: [
+                  [
+                     { text: "Đã có", callback_data: "2" },
+                     { text: "Đăng kí", callback_data: "3" },
                   ],
-               },
-            });
-         if (data === "2") {
+               ],
+            };
             await api.sendMessage({
                chat_id: chat_id,
-               text:
-                  "Để lại số điện thoại, email để Doremon ghi danh tự động cho bạn nhé, đơn giản thôi tôi là Doremon mà, tôi sẽ thay bạn làm mọi thứ !",
+               text: txtMessage,
+               reply_markup: replyMarkup,
             });
-            await api.sendMessage({ chat_id: chat_id, text: "Hãy nhập họ tên của bạn vào. \n /name [whatever]" });
+            arr.push({
+               from: {
+                  id: bot_id,
+                  is_bot: true,
+                  first_name: "Testing_Bot",
+                  last_name: "tribuiquang_testing_telegram_bot",
+               },
+               chat: {
+                  id: chat_id,
+                  first_name: "tri",
+                  last_name: "bui quang",
+               },
+               text: txtMessage,
+               reply_markup: replyMarkup,
+            });
+         }
+         if (data === "2") {
+            txtMessage =
+               "Để lại số điện thoại, email để Doremon ghi danh tự động cho bạn nhé, đơn giản thôi tôi là Doremon mà, tôi sẽ thay bạn làm mọi thứ !";
+            await api.sendMessage({
+               chat_id: chat_id,
+               text: txtMessage,
+            });
+            arr.push({
+               from: {
+                  id: bot_id,
+                  is_bot: true,
+                  first_name: "Testing_Bot",
+                  last_name: "tribuiquang_testing_telegram_bot",
+               },
+               chat: {
+                  id: chat_id,
+                  first_name: "tri",
+                  last_name: "bui quang",
+               },
+               text: txtMessage,
+            });
+            txtMessage = "Hãy nhập họ tên của bạn vào. \n /name [whatever]";
+            await api.sendMessage({ chat_id: chat_id, text: txtMessage });
+            arr.push({
+               from: {
+                  id: bot_id,
+                  is_bot: true,
+                  first_name: "Testing_Bot",
+                  last_name: "tribuiquang_testing_telegram_bot",
+               },
+               chat: {
+                  id: chat_id,
+                  first_name: "tri",
+                  last_name: "bui quang",
+               },
+               text: txtMessage,
+            });
          }
          if (data === "3") {
-            await api.sendMessage({ chat_id: chat_id, text: "Bạn vui lòng tạo tài khoản và ví OPAY tại link này nhé: \n https://opay.ai/register" });
-            console.log("gohere");
+            txtMessage = "Bạn vui lòng tạo tài khoản và ví OPAY tại link này nhé: \n https://opay.ai/register";
+            await api.sendMessage({ chat_id: chat_id, text: txtMessage });
+            arr.push({
+               from: {
+                  id: bot_id,
+                  is_bot: true,
+                  first_name: "Testing_Bot",
+                  last_name: "tribuiquang_testing_telegram_bot",
+               },
+               chat: {
+                  id: chat_id,
+                  first_name: "tri",
+                  last_name: "bui quang",
+               },
+
+               text: txtMessage,
+            });
             await delay(2000);
+            txtMessage = "Bạn có muốn tôi đợi bạn tạo xong tài khoản và ví OPAY rồi tiếp tục?";
+            replyMarkup = {
+               inline_keyboard: [
+                  [
+                     { text: "Tiếp tục", callback_data: "2" },
+                     { text: "Đợi", callback_data: "4" },
+                  ],
+               ],
+            };
             await api.sendMessage({
                chat_id: chat_id,
-               text: "Bạn có muốn tôi đợi bạn tạo xong tài khoản và ví OPAY rồi tiếp tục?",
-               reply_markup: {
-                  inline_keyboard: [
-                     [
-                        { text: "Tiếp tục", callback_data: "2" },
-                        { text: "Đợi", callback_data: "4" },
-                     ],
-                  ],
+               text: txtMessage,
+               reply_markup: replyMarkup,
+            });
+            arr.push({
+               from: {
+                  id: bot_id,
+                  is_bot: true,
+                  first_name: "Testing_Bot",
+                  last_name: "tribuiquang_testing_telegram_bot",
                },
+               chat: {
+                  id: chat_id,
+                  first_name: "tri",
+                  last_name: "bui quang",
+               },
+
+               text: txtMessage,
+               reply_markup: replyMarkup,
             });
          }
          if (data === "4") {
+            txtMessage = "Mình vẫn còn ở đây, đợi bạn tạo xong tài khoản và ví OPAY, rồi chúng ta tiếp tục nhé!";
+            replyMarkup = {
+               inline_keyboard: [[{ text: "Tiếp tục", callback_data: "2" }]],
+            };
             await delay(2000);
             await api.sendMessage({
                chat_id: chat_id,
-               text: "Mình vẫn còn ở đây, đợi bạn tạo xong tài khoản và ví OPAY, rồi chúng ta tiếp tục nhé!",
-               reply_markup: {
-                  inline_keyboard: [[{ text: "Tiếp tục", callback_data: "2" }]],
+               text: txtMessage,
+               reply_markup: replyMarkup,
+            });
+            arr.push({
+               from: {
+                  id: bot_id,
+                  is_bot: true,
+                  first_name: "Testing_Bot",
+                  last_name: "tribuiquang_testing_telegram_bot",
                },
+               chat: {
+                  id: chat_id,
+                  first_name: "tri",
+                  last_name: "bui quang",
+               },
+               text: txtMessage,
+               reply_markup: replyMarkup,
             });
          }
       }
       if (checkName && checkName === true) {
          reg = /\b[^\d\W]+\b/g;
          check = reg.test(text);
-         if (check) await api.sendMessage({ chat_id: chat_id, text: "Để lại số điện thoại nữa nhé \n /phone [whatever]" });
-         else await api.sendMessage({ chat_id: chatId, text: "Nhập sai xin bạn nhập tên lại !!! \n /name [whatever]" });
+
+         if (check) {
+            txtMessage = "Để lại số điện thoại nữa nhé \n /phone [whatever]";
+         } else {
+            txtMessage = "Nhập sai xin bạn nhập tên lại !!! \n /name [whatever]";
+         }
       }
 
       if (checkPhone && checkPhone === true) {
          reg = /^[0-9\+]{1,}[0-9\-]{3,15}$/;
          check = reg.test(text);
-         if (check) await api.sendMessage({ chat_id: chat_id, text: "Còn địa chỉ email nữa là xong thôi \n /email [whatever]" });
-         else await api.sendMessage({ chat_id: chat_id, text: "Nhập sai xin bạn nhập phone lại !!! \n /phone [whatever]" });
+         if (check) {
+            txtMessage = "Còn địa chỉ email nữa là xong thôi \n /email [whatever]";
+         } else {
+            txtMessage = "Nhập sai xin bạn nhập phone lại !!! \n /phone [whatever]";
+         }
       }
 
       if (checkEmail && checkEmail === true) {
          reg = /^\S+@\S+$/;
          check = reg.test(text);
          if (check) {
-            await api.sendMessage({
-               chat_id: chat_id,
-               text:
-                  "Ghi danh thanh công. \n Doremon sẽ gửi bạn thông tin về lớp học trước 1 ngày, bạn sắp xếp để tham gia học nhé, chúc bạn 1 ngày tốt đẹp",
-            });
-         } else await api.sendMessage({ chat_id: chat_id, text: "Nhập sai xin bạn nhập email lại !!! \n /email [whatever]" });
+            txtMessage =
+               "Ghi danh thanh công. \n Doremon sẽ gửi bạn thông tin về lớp học trước 1 ngày, bạn sắp xếp để tham gia học nhé, chúc bạn 1 ngày tốt đẹp";
+         } else {
+            txtMessage = "Nhập sai xin bạn nhập email lại !!! \n /email [whatever]";
+         }
       }
 
       if (text.includes("bye")) {
-         api.sendMessage({ chat_id: chat_id, text: "Hope to see you around again , Bye" });
+         txtMessage = "Hope to see you around again , Bye";
       }
+      await api.sendMessage({ chat_id: chat_id, text: txtMessage });
+      arr.push({
+         from: {
+            id: bot_id,
+            is_bot: true,
+            first_name: "Testing_Bot",
+            last_name: "tribuiquang_testing_telegram_bot",
+         },
+         chat: {
+            id: chat_id,
+            first_name: "tri",
+            last_name: "bui quang",
+         },
 
+         text: txtMessage,
+      });
+
+      await Chat.updateOne({ user_id: req.auth.userId }, { $push: { message: arr } });
       logger.info("Stop SendMessage");
-      console.log(arr);
-      await Chat.update({ user_id: req.auth.userId }, { $push: { message: arr } });
-      return res.status(200).json({ message: text });
+      return res.status(200).json({ message: arr });
    } catch (error) {
       logger.error("Error SendMessage " + error);
 

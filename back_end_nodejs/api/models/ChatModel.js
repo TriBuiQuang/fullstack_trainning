@@ -21,7 +21,7 @@ const chatSchema = mongoose.Schema({
          //convert date
          //  myDate = new Date(1000*date);
          reply_markup: { inline_keyboard: [{ text: { type: String, required: true }, callback_data: { type: String, required: true } }] },
-         date: { type: Number, required: true },
+         date: { type: Number, default: Date.parse(new Date()) },
          text: { type: String, required: true },
       },
    ],
