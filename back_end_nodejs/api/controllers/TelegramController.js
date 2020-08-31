@@ -360,7 +360,7 @@ const SendMessage = async (req, res) => {
 
          text: txtMessage,
       });
-
+      console.log(arr);
       await Chat.updateOne({ user_id: req.auth.userId }, { $push: { message: arr } });
       logger.info("Stop SendMessage");
       return res.status(200).json({ message: arr });
