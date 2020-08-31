@@ -1,11 +1,15 @@
 import TelegramBot from "node-telegram-bot-api";
 import app from "./config/app.js";
+
+//api.telegram.org/bot1290395436:AAHOp5RUoLWAd81ToPqg2ENsNSeBCYzk4gQ/sendMessage
+//https: //api.telegram.org/bot1290395436:AAHOp5RUoLWAd81ToPqg2ENsNSeBCYzk4gQ/getMe
+
 // replace the value below with the Telegram token you receive from @BotFather
 const token = app.telegram.token;
 
 // Create a bot that uses 'polling' to fetch new updates
 const bot = new TelegramBot(token, { polling: true });
-
+console.log("bot", bot);
 bot.onText(/\/start/, async (msg, match) => {
    // 'msg' is the received Message from Telegram
    // 'match' is the result of executing the regexp above on the text content
@@ -28,9 +32,14 @@ bot.onText(/\/start/, async (msg, match) => {
 
 // Listen for any kind of message. There are different kinds of
 // messages.
+console.log(
+   bot.on("message", (mess) => {
+      console.log(mess);
+   })
+);
 bot.on("message", (msg) => {
    const chatId = msg.chat.id;
-
+   console.log(msg);
    // send a message to the chat acknowledging receipt of their message
 
    const Hi = "hi";
@@ -67,7 +76,7 @@ const requestPhoneKeyboard = {
 
 bot.on("callback_query", async (msg) => {
    const chatId = msg.from.id;
-
+   console.log(msg);
    if (msg.data === "1")
       await bot.sendMessage(chatId, "Đặc biệt hơn nếu thanh toán bằng OPAY bạn chỉ còn 80$ ~ 120 OPAY bạn có tài khoản chưa?", {
          reply_markup: {

@@ -22,7 +22,7 @@ const DynamiclyRefreshedDoughnut = () => {
    const [data] = useState(getState());
 
    return (
-      <Col md={12} lg={12} xl={6}>
+      <Col md={6}>
          <Card>
             <CardBody>
                <div className="card__title">

@@ -32,7 +32,7 @@ const SideBar = ({ isOpen, toggle }) => (
 
             <NavItem>
                <NavLink tag={Link} to="/">
-                  <i className="mr-2 fas fa-paper-plane" />
+                  <i className="mr-2 fas fa-sign-out-alt" />
                   Log Out
                </NavLink>
             </NavItem>

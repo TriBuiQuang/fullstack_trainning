@@ -36,7 +36,7 @@ if (cluster.isMaster) {
 
    // Listen to connection
    app.listen(port, () => {
-      console.log(port);
+      // console.log(port);
       // console.log('this is the worker process : ', pid);
    });
 
