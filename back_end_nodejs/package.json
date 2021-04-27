@@ -20,7 +20,7 @@
       "mongoose": "^5.9.27",
       "node-telegram-bot-api": "^0.50.0",
       "nodemon": "^2.0.4",
-      "redis": "^3.0.2",
+      "redis": "^3.1.1",
       "telegram-bot-api": "^2.0.1",
       "winston": "^3.3.3"
    },
